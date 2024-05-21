@@ -6,6 +6,7 @@ import 'package:flutter_fic_frontend/core/components/custom_text_field.dart';
 import 'package:flutter_fic_frontend/core/components/spaces.dart';
 import 'package:flutter_fic_frontend/core/constants/colors.dart';
 import 'package:flutter_fic_frontend/core/extensions/build_context_ext.dart';
+import 'package:flutter_fic_frontend/presentation/auth/bloc/login/login_bloc.dart';
 
 import 'package:flutter_fic_frontend/presentation/home/pages/dashboard_page.dart';
 
@@ -56,11 +57,22 @@ class _LoginPageState extends State<LoginPage> {
                         label: 'Kata Sandi',
                       ),
                       const SpaceHeight(40.0),
-                      Button.filled(
-                        onPressed: () {
-                          context.pushReplacement(const DashboardPage());
+                      BlocConsumer<LoginBloc, LoginState>(
+                        listener: (context, state) {
+                          // TODO: implement listener
                         },
-                        label: 'MASUK',
+                        builder: (context, state) {
+                          return Button.filled(
+                            onPressed: () {
+                              //context.pushReplacement(const DashboardPage());
+                              context.read<LoginBloc>().add(LoginEvent.login(
+                                    emailController.text,
+                                    passwordController.text,
+                                  ));
+                            },
+                            label: 'MASUK',
+                          );
+                        },
                       ),
                       const SpaceHeight(20.0),
                       const SpaceHeight(100.0),

@@ -32,6 +32,7 @@ class AuthRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
+      await AuthLocalDataSource().removeAuthData();
       return const Right('Logout  Berhasil');
     } else {
       return const Left('Gagal Login');

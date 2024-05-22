@@ -59,18 +59,46 @@ class _LoginPageState extends State<LoginPage> {
                       const SpaceHeight(40.0),
                       BlocConsumer<LoginBloc, LoginState>(
                         listener: (context, state) {
-                          // TODO: implement listener
+                          state.maybeWhen(
+                              success: (data) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const DashboardPage(),
+                                  ),
+                                );
+                              },
+                              error: (message) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message),
+                                    backgroundColor: AppColors.red,
+                                  ),
+                                );
+                              },
+                              orElse: () {});
                         },
                         builder: (context, state) {
-                          return Button.filled(
-                            onPressed: () {
-                              //context.pushReplacement(const DashboardPage());
-                              context.read<LoginBloc>().add(LoginEvent.login(
-                                    emailController.text,
-                                    passwordController.text,
-                                  ));
+                          return state.maybeWhen(
+                            orElse: () {
+                              return Button.filled(
+                                onPressed: () {
+                                  //context.pushReplacement(const DashboardPage());
+                                  context
+                                      .read<LoginBloc>()
+                                      .add(LoginEvent.login(
+                                        emailController.text,
+                                        passwordController.text,
+                                      ));
+                                },
+                                label: 'MASUK',
+                              );
                             },
-                            label: 'MASUK',
+                            loading: () {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
                           );
                         },
                       ),

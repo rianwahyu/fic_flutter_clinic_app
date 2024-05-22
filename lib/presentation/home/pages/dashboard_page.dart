@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fic_frontend/core/core.dart';
+import 'package:flutter_fic_frontend/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:flutter_fic_frontend/presentation/auth/pages/login_page.dart';
 import 'package:flutter_fic_frontend/presentation/home/widget/nav_item.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -62,10 +65,36 @@ class _DashboardPageState extends State<DashboardPage> {
                           isActive: _selectedIndex == 4,
                           onTap: () => _onItemTapped(4),
                         ),
-                        NavItem(
-                          iconPath: Assets.icons.logOut.path,
-                          isActive: false,
-                          onTap: () {},
+                        BlocListener<LogoutBloc, LogoutState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                                success: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginPage(),
+                                    ),
+                                  );
+                                },
+                                error: (message) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(message),
+                                      backgroundColor: AppColors.red,
+                                    ),
+                                  );
+                                },
+                                orElse: () {});
+                          },
+                          child: NavItem(
+                            iconPath: Assets.icons.logOut.path,
+                            isActive: false,
+                            onTap: () {
+                              context
+                                  .read<LogoutBloc>()
+                                  .add(const LogoutEvent.logout());
+                            },
+                          ),
                         ),
                       ],
                     ),

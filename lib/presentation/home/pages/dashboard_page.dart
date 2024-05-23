@@ -4,6 +4,7 @@ import 'package:flutter_fic_frontend/core/core.dart';
 import 'package:flutter_fic_frontend/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:flutter_fic_frontend/presentation/auth/pages/login_page.dart';
 import 'package:flutter_fic_frontend/presentation/home/widget/nav_item.dart';
+import 'package:flutter_fic_frontend/presentation/master/pages/master_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -18,7 +19,9 @@ class _DashboardPageState extends State<DashboardPage> {
   final List<Widget> _pages = [
     const Center(child: Text('This is page 1')),
     //DataMasterPage(onTap: (_) {}),
-    const Center(child: Text('This is page 2')),
+    MasterPage(
+      onTap: (_) {},
+    ),
     const Center(child: Text('This is page 3')),
     const Center(child: Text('This is page 4')),
     const Center(child: Text('This is page 5')),

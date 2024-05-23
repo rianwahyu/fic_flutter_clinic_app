@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fic_frontend/core/constants/colors.dart';
 import 'package:flutter_fic_frontend/data/datasource/auth_local_datasource.dart';
 import 'package:flutter_fic_frontend/data/datasource/auth_remote_datasource.dart';
+import 'package:flutter_fic_frontend/data/datasource/master_remote_datasource.dart';
 import 'package:flutter_fic_frontend/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:flutter_fic_frontend/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:flutter_fic_frontend/presentation/auth/pages/login_page.dart';
 import 'package:flutter_fic_frontend/presentation/home/pages/dashboard_page.dart';
+import 'package:flutter_fic_frontend/presentation/master/bloc/bloc/data_doctor_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LogoutBloc(AuthRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => DataDoctorBloc(MasterRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

@@ -24,7 +24,7 @@ class SearchInput extends StatelessWidget {
       ),
       child: TextFormField(
         onTap: onTap,
-        readOnly: onTap != null,
+        //readOnly: onTap != null,
         controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(

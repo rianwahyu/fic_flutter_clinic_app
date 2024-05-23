@@ -72,105 +72,118 @@ class _DataDoctorPageState extends State<DataDoctorPage> {
                   state.maybeWhen(
                     orElse: () {},
                     error: (message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                          backgroundColor: AppColors.red,
-                        ),
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(message),
+                        backgroundColor: AppColors.red,
+                      ));
                     },
                   );
                 },
-                child: BlocBuilder<DataDoctorBloc, DataDoctorState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      orElse: () {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      loading: () {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      loaded: (doctors) {
-                        return DataTable(
-                          columns: [
-                            DataColumn(
-                              label: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Button.filled(
-                                  onPressed: () {},
-                                  label: 'Nama Dokter',
-                                  width: null,
-                                  color: AppColors.title,
-                                  textColor: AppColors.black.withOpacity(0.5),
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                            DataColumn(
-                              label: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Button.filled(
-                                  onPressed: () {},
-                                  label: 'Spesialis',
-                                  width: null,
-                                  color: AppColors.title,
-                                  textColor: AppColors.black.withOpacity(0.5),
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                            DataColumn(
-                              label: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Button.filled(
-                                  onPressed: () {},
-                                  label: 'No REG',
-                                  width: null,
-                                  color: AppColors.title,
-                                  textColor: AppColors.black.withOpacity(0.5),
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                          rows: doctors.isEmpty
-                              ? [
-                                  const DataRow(
-                                    cells: [
-                                      DataCell(Row(
-                                        children: [
-                                          Icon(Icons.highlight_off),
-                                          SpaceWidth(4.0),
-                                          Text('Data tidak ditemukan..'),
-                                        ],
-                                      )),
-                                      DataCell.empty,
-                                      DataCell.empty,
-                                    ],
-                                  ),
-                                ]
-                              : doctors
-                                  .map(
-                                    (doctor) => DataRow(cells: [
-                                      DataCell(Text(
-                                        doctor.doctorName ?? '',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                      DataCell(
-                                          Text(doctor.doctorSpecialist ?? '')),
-                                      DataCell(Text(doctor.sip ?? '')),
-                                    ]),
-                                  )
-                                  .toList(),
+                child: BlocListener<DataDoctorBloc, DataDoctorState>(
+                  listener: (context, state) {
+                    state.maybeWhen(
+                      orElse: () {},
+                      error: (message) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(message),
+                            backgroundColor: AppColors.red,
+                          ),
                         );
                       },
                     );
                   },
+                  child: BlocBuilder<DataDoctorBloc, DataDoctorState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        orElse: () {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                        loading: () {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                        loaded: (doctors) {
+                          return DataTable(
+                            columns: [
+                              DataColumn(
+                                label: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Button.filled(
+                                    onPressed: () {},
+                                    label: 'Nama Dokter',
+                                    width: null,
+                                    color: AppColors.title,
+                                    textColor: AppColors.black.withOpacity(0.5),
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Button.filled(
+                                    onPressed: () {},
+                                    label: 'Spesialis',
+                                    width: null,
+                                    color: AppColors.title,
+                                    textColor: AppColors.black.withOpacity(0.5),
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Button.filled(
+                                    onPressed: () {},
+                                    label: 'No REG',
+                                    width: null,
+                                    color: AppColors.title,
+                                    textColor: AppColors.black.withOpacity(0.5),
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            rows: doctors.isEmpty
+                                ? [
+                                    const DataRow(
+                                      cells: [
+                                        DataCell(Row(
+                                          children: [
+                                            Icon(Icons.highlight_off),
+                                            SpaceWidth(4.0),
+                                            Text('Data tidak ditemukan..'),
+                                          ],
+                                        )),
+                                        DataCell.empty,
+                                        DataCell.empty,
+                                      ],
+                                    ),
+                                  ]
+                                : doctors
+                                    .map(
+                                      (doctor) => DataRow(cells: [
+                                        DataCell(Text(
+                                          doctor.doctorName ?? '',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                        DataCell(Text(
+                                            doctor.doctorSpecialist ?? '')),
+                                        DataCell(Text(doctor.sip ?? '')),
+                                      ]),
+                                    )
+                                    .toList(),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

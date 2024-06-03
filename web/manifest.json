@@ -1,6 +1,6 @@
 {
-    "name": "flutter_fic_frontend",
-    "short_name": "flutter_fic_frontend",
+    "name": "fic_flutter_clinic_app",
+    "short_name": "fic_flutter_clinic_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

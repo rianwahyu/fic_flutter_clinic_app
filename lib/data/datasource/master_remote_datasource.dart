@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_fic_frontend/core/constants/variables.dart';
 import 'package:flutter_fic_frontend/data/models/response/master_doctor_response_model.dart';
+import 'package:flutter_fic_frontend/data/models/response/master_patient_response_model.dart';
 
 import 'auth_local_datasource.dart';
 import 'package:http/http.dart' as http;
@@ -42,6 +43,26 @@ class MasterRemoteDatasource {
       return const Left('Gagal mendapatkan data dokter');
     }
   }
+
+
+  Future<Either<String, MasterPatientResponseModel>> getPatients() async {
+    final authData = await AuthLocalDataSource().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-patients');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(MasterPatientResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Gagal mendapatkan data dokter');
+    }
+  }
+
 
   /* Future<Either<String, MasterPatientResponseModel>> getPatients() async {
     final authData = await AuthLocalDataSource().getAuthData();

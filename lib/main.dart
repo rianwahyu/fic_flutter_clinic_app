@@ -7,7 +7,8 @@ import 'package:flutter_fic_frontend/presentation/auth/bloc/login/login_bloc.dar
 import 'package:flutter_fic_frontend/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:flutter_fic_frontend/presentation/auth/pages/login_page.dart';
 import 'package:flutter_fic_frontend/presentation/home/pages/dashboard_page.dart';
-import 'package:flutter_fic_frontend/presentation/master/bloc/bloc/data_doctor_bloc.dart';
+import 'package:flutter_fic_frontend/presentation/master/bloc/data_doctor/data_doctor_bloc.dart';
+import 'package:flutter_fic_frontend/presentation/master/bloc/data_patients/data_patients_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DataDoctorBloc(MasterRemoteDatasource()),
+        ),
+
+        BlocProvider(
+          create: (context) => DataPatientsBloc(MasterRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

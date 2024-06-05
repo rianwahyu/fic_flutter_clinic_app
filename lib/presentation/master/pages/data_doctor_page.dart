@@ -4,7 +4,7 @@ import 'package:flutter_fic_frontend/core/components/buttons.dart';
 import 'package:flutter_fic_frontend/core/components/spaces.dart';
 import 'package:flutter_fic_frontend/core/constants/colors.dart';
 import 'package:flutter_fic_frontend/presentation/home/widget/build_app_bar.dart';
-import 'package:flutter_fic_frontend/presentation/master/bloc/bloc/data_doctor_bloc.dart';
+import 'package:flutter_fic_frontend/presentation/master/bloc/data_doctor/data_doctor_bloc.dart';
 
 class DataDoctorPage extends StatefulWidget {
   const DataDoctorPage({super.key});

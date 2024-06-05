@@ -59,7 +59,25 @@ class MasterRemoteDatasource {
     if (response.statusCode == 200) {
       return Right(MasterPatientResponseModel.fromJson(response.body));
     } else {
-      return const Left('Gagal mendapatkan data dokter');
+      return const Left('Gagal mendapatkan data patients');
+    }
+  }
+
+  Future<Either<String, MasterPatientResponseModel>> getPatientByNIK(String nik) async {
+    final authData = await AuthLocalDataSource().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-patients?nik=$nik');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(MasterPatientResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Gagal mendapatkan data patients');
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter_fic_frontend/core/components/spaces.dart';
 import 'package:flutter_fic_frontend/core/core.dart';
 import 'package:flutter_fic_frontend/presentation/home/widget/build_app_bar.dart';
 import 'package:flutter_fic_frontend/presentation/master/pages/data_doctor_page.dart';
+import 'package:flutter_fic_frontend/presentation/master/pages/data_patient_page.dart';
 
 class MasterPage extends StatefulWidget {
   final void Function(int index) onTap;
@@ -45,8 +46,9 @@ class _MasterPageState extends State<MasterPage> {
               label: 'Data Pasien',
               iconPath: Assets.images.menu.data.path,
               onPressed: () {
-                widget.onTap(2);
+                // widget.onTap(2);
                 //context.push(const DataPatientPage());
+                context.push(const DataPatientPage());
               },
             ),
             const SpaceWidth(45.0),

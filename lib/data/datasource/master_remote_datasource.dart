@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_fic_frontend/core/constants/variables.dart';
+import 'package:flutter_fic_frontend/data/models/response/doctor_schedule_response_model.dart';
 import 'package:flutter_fic_frontend/data/models/response/master_doctor_response_model.dart';
 import 'package:flutter_fic_frontend/data/models/response/master_patient_response_model.dart';
 
@@ -78,6 +79,43 @@ class MasterRemoteDatasource {
       return Right(MasterPatientResponseModel.fromJson(response.body));
     } else {
       return const Left('Gagal mendapatkan data patients');
+    }
+  }
+
+  Future<Either<String, DoctorScheduleResponseModel>> getDoctorSchedules() async {
+    final authData = await AuthLocalDataSource().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctor-schedules');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(DoctorScheduleResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Gagal mendapatkan jadwal dokter');
+    }
+  }
+
+
+  Future<Either<String, DoctorScheduleResponseModel>> getDoctorSchedulesByDoctorName(String name) async {
+    final authData = await AuthLocalDataSource().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctor-schedules?name=$name');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(DoctorScheduleResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Gagal mendapatkan jadwal dokter');
     }
   }
 

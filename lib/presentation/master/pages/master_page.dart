@@ -5,6 +5,7 @@ import 'package:flutter_fic_frontend/core/components/spaces.dart';
 import 'package:flutter_fic_frontend/core/core.dart';
 import 'package:flutter_fic_frontend/presentation/home/widget/build_app_bar.dart';
 import 'package:flutter_fic_frontend/presentation/master/pages/data_doctor_page.dart';
+import 'package:flutter_fic_frontend/presentation/master/pages/data_doctor_schedule_page.dart';
 import 'package:flutter_fic_frontend/presentation/master/pages/data_patient_page.dart';
 
 class MasterPage extends StatefulWidget {
@@ -58,6 +59,7 @@ class _MasterPageState extends State<MasterPage> {
               onPressed: () {
                 widget.onTap(3);
                 //context.push(const DataDoctorSchedulePage());
+                context.push(const DoctorSchedulePage());
               },
             ),
             const SpaceWidth(45.0),

@@ -39,7 +39,7 @@ class BuildAppBar extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 28.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.w600,
                     color: AppColors.primary,
                   ),
